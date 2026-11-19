@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Refund Check</title>
+<meta name="description" content="A traveller's eSIM refund request read against the order's event log. The three facts the refund rule needs each point at the log line they came from. Anything missing goes to a person. Plain code.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfcfc">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c1114">
+<link rel="icon" href="data:,">
+<link rel="preload" href="fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></symbol>
+  <symbol id="i-none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.2 2.2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 16 16"><path d="M4 14V2.5M4 3h7.5l-1.75 3 1.75 3H4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 16 16"><path d="M6 3.5L10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<main class="shell">
+  <div class="sheet-col">
+    <header class="top">
+      <p class="mark">Refund Check <span class="tag">Sample data</span></p>
+      <h1>The 30-day refund rule, applied the same way on every ticket.</h1>
+      <p class="sub">Six made-up refund requests. Each answer shows the order-log line behind it, and edge cases go to a person.</p>
+    </header>
+
+    <section class="reading" aria-labelledby="summary">
+      <p class="summary" id="summary" role="status"><span class="sum-main">Checking</span></p>
+      <button type="button" class="btn text why-btn" id="why-btn" aria-expanded="false" aria-controls="chain">What the rule checks</button>
+      <div class="why-text" id="chain" hidden>
+        <p>A full refund needs three facts: the ticket came within 30 days of purchase, the QR code was never scanned, and the eSIM was never installed or activated. Installed or activated means no refund, even with no data used.</p>
+        <p>"Not scanned" needs a supplier status check from the last 24 hours. A log with no scan line is not proof. A fact with no line behind it reads "not found", and the request goes to a person. So do outages, earlier refunds and logs that disagree.</p>
+      </div>
+      <ul id="list" class="rows"></ul>
+    </section>
+  </div>
+
+  <aside class="evidence-col" id="side" aria-live="polite"></aside>
+
+  <section class="tool" id="own-tool" aria-labelledby="own-h">
+    <h2 id="own-h">Check your own</h2>
+    <p class="tool-sub">Paste a ticket and its order log. Checked in this browser with the same rule.</p>
+    <label class="field-l" for="own-ticket">Ticket</label>
+    <textarea id="own-ticket" rows="6" spellcheck="false" autocomplete="off" placeholder="From: Sam K.&#10;Received: 2026-11-19T12:10Z&#10;Order: ES-39954&#10;&#10;Can I get a refund?"></textarea>
+    <label class="field-l" for="own-log">Order log, one event per line</label>
+    <textarea id="own-log" class="mono" rows="6" spellcheck="false" autocomplete="off" placeholder="2026-10-12T15:31:40Z order_paid order=ES-39954 plan=Portugal-10GB-15d amount=16.00 currency=USD"></textarea>
+    <div class="actions">
+      <button type="button" id="own-check" class="btn primary">Check it</button>
+      <button type="button" id="own-sample" class="btn text">Fill in an example</button>
+    </div>
+    <p id="own-error" class="error" role="alert" hidden></p>
+    <div id="own-out"></div>
+  </section>
+
+  <footer class="foot" id="foot">
+    <p>For support teams that sell travel eSIMs. Built by Arnold Ikpemosi Adeyemi. Made-up travellers, orders and logs.</p>
+    <p><a href="https://ikpemosi.work">ikpemosi.work</a></p>
+  </footer>
+</main>
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>

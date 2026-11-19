@@ -1,0 +1,9 @@
+{
+  "name": "esim-refund-check",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A traveller's eSIM refund request read against the order's event log. Each fact the refund rule needs points at the log line it came from; anything missing goes to a person.",
+  "scripts": { "test": "node --test" },
+  "license": "MIT"
+}
