@@ -1,4 +1,4 @@
-import { checkAll, checkRequest, fmt } from "./check.js?v=1";
+import { checkAll, checkRequest, fmt, fmtClock } from "./check.js?v=1";
 import { cases, example } from "./samples.js?v=1";
 
 const $ = (id) => document.getElementById(id);
@@ -162,33 +162,36 @@ const FACT_WORD = { allows: ["pass", "Allows"], blocks: ["fail", "Blocks"], none
 /** Everything about one request, result first. */
 function detail(r, { own = false } = {}) {
   const box = el("div", "evidence");
-  box.append(el("p", "side-h", `${own ? "Your ticket" : `Ticket from ${r.from}`}${r.received ? `, ${fmt(r.received)}` : ""}${r.order ? ` · ${r.order}` : ""}`));
-  box.append(el("p", `side-title st-${r.state}`, r.label));
+  // Presentation only: the verdict, the facts and the flags sit in one reversed panel; the documents follow it.
+  const panel = el("div", "panel");
+  box.append(panel);
+  panel.append(el("p", "side-h", `${own ? "Your ticket" : `Ticket from ${r.from}`}${r.received ? `, ${fmt(r.received)}` : ""}${r.order ? ` · ${r.order}` : ""}`));
+  panel.append(el("p", `side-title st-${r.state}`, r.label));
   const why = el("p", "reason");
   const g = icon(glyph[r.state]);
   g.style.color = `var(--${r.state})`;
   why.append(g, el("span", null, r.headline));
-  box.append(why);
+  panel.append(why);
   const nx = el("p", "next");
   nx.append(el("b", null, "Next: "), r.next);
-  box.append(nx);
+  panel.append(nx);
 
-  box.append(el("p", "ev-h", "The three facts the rule needs"));
-  if (r.orderNote) box.append(el("p", "note", r.orderNote));
+  panel.append(el("p", "ev-h", "The three facts the rule needs"));
+  if (r.orderNote) panel.append(el("p", "note", r.orderNote));
   const facts = el("ul", "rows sub-rows");
   for (const f of r.facts) {
     const [state, word] = FACT_WORD[f.effect];
     facts.append(subRow(r, box, { state, word, title: `${f.label}: ${f.value}`, meta: lineList(f.refs), text: f.text, refs: f.refs }));
   }
-  box.append(facts);
+  panel.append(facts);
 
   if (r.flags.length) {
-    box.append(el("p", "ev-h", r.flags.length === 1 ? "One flag" : `${r.flags.length} flags`));
+    panel.append(el("p", "ev-h", r.flags.length === 1 ? "One flag" : `${r.flags.length} flags`));
     const fl = el("ul", "rows sub-rows");
     for (const f of r.flags) {
       fl.append(subRow(r, box, { state: "none", word: f.escalate ? "Escalate" : "Flag", glyphName: f.escalate ? "none" : "flag", title: f.title, meta: lineList(f.refs), text: f.text, refs: f.refs }));
     }
-    box.append(fl);
+    panel.append(fl);
   }
 
   box.append(el("p", "ev-h", "Reply draft. A person reads and sends it."));
@@ -234,8 +237,11 @@ function statusCell(r) {
 
 function render() {
   const n = (v) => results.filter((r) => r.verdict === v).length;
+  // Same words as before: the label and the count are set as two lines of one figure.
+  const main = el("span", "sum-main");
+  main.append(el("span", "verb", "Refund:"), " ", el("span", "fig", `${n("yes")} of ${results.length}`));
   $("summary").replaceChildren(
-    el("span", "sum-main", `Refund: ${n("yes")} of ${results.length}`),
+    main,
     el("span", "sum-side", `${n("no")} no, ${n("escalate")} to a person`),
   );
   const ul = $("list");
@@ -253,7 +259,11 @@ function render() {
     val.append(el("b", null, r.headline), el("span", "meta", `${nb(r.from ?? "No name")} · ${nb(plan)}${flagN ? ` · ${nb(`${flagN} flag${flagN === 1 ? "" : "s"}`)}` : ""}`));
     const chev = icon("chev");
     chev.classList.add("chev");
-    b.append(statusCell(r), val, chev);
+    // Presentation only: the time the ticket came in, as the first column of the board.
+    const t = el("span", "t");
+    if (r.received) { const [clock, zone] = fmtClock(r.received).split(" "); t.append(el("b", null, clock), el("i", null, zone)); }
+    else t.append(el("span", "no"));
+    b.append(t, statusCell(r), val, chev);
     b.addEventListener("click", () => {
       openId = openId === r.id && !wide.matches ? null : r.id;
       render();

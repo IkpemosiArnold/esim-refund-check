@@ -6,25 +6,24 @@
 <title>Refund Check</title>
 <meta name="description" content="A traveller's eSIM refund request read against the order's event log. The three facts the refund rule needs each point at the log line they came from. Anything missing goes to a person. Plain code.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfcfc">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c1114">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#0b0b0b">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#ffd400">
 <link rel="icon" href="data:,">
-<link rel="preload" href="fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-cross" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></symbol>
-  <symbol id="i-none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.2 2.2"/></symbol>
-  <symbol id="i-flag" viewBox="0 0 16 16"><path d="M4 14V2.5M4 3h7.5l-1.75 3 1.75 3H4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="M2.200 8.600l3.700 3.700L13.800 4" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="square"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 16 16"><path d="M3.200 3.200l9.600 9.600M12.800 3.200l-9.600 9.600" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="square"/></symbol>
+  <symbol id="i-none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.600" fill="none" stroke="currentColor" stroke-width="2.400" stroke-dasharray="2.500 2.500"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 16 16"><path d="M4 14.500V2M4 2.800h8l-2 3 2 3H4" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
   <symbol id="i-chev" viewBox="0 0 16 16"><path d="M6 3.5L10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
-<main class="shell">
+<p class="mark band">Refund Check <span class="tag">Sample data</span></p>
+<main class="page">
   <div class="sheet-col">
     <header class="top">
-      <p class="mark">Refund Check <span class="tag">Sample data</span></p>
       <h1>The 30-day refund rule, applied the same way on every ticket.</h1>
       <p class="sub">Six made-up refund requests. Each answer shows the order-log line behind it, and edge cases go to a person.</p>
     </header>
@@ -62,6 +61,6 @@
     <p><a href="https://ikpemosi.work">ikpemosi.work</a></p>
   </footer>
 </main>
-<script type="module" src="app.js?v=1"></script>
+<script type="module" src="app.js?v=2"></script>
 </body>
 </html>

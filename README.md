@@ -75,9 +75,9 @@ Then open http://localhost:8832. The page makes no network calls beyond its own 
 
 ## Design
 
-The result comes first: how many requests get a refund, then each request with its verdict and the reason. Rows are split by hairlines. An underline draws under the parts of each log line a fact was read from. Green allows a refund, red blocks it, amber goes to a person. Geist for the tool, Newsreader for the traveller's words, monospace for the log, one teal-blue accent.
+The result comes first: how many requests get a refund, then each request with its verdict and the reason. The page is set like a departure board: a yellow sheet in light and a black board in dark, with each ticket on its own row under the time it came in. Opening a ticket reverses the colours. The parts of each log line a fact was read from are underlined. A refund is an outlined tag, no refund is a filled tag and a request for a person is a dashed tag. Each has its own glyph and word, so nothing depends on colour. One family, Archivo, at three widths, and monospace for the log.
 
-Fonts: Geist and Newsreader (SIL Open Font License), in `fonts/`.
+Fonts: Archivo (SIL Open Font License), in `fonts/`.
 
 ## Provenance
 
